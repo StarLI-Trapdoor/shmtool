@@ -1,4 +1,4 @@
-module github.com/ghetzel/shmtool
+module github.com/StarLI-Trapdoor/shmtool
 
 go 1.12
 
