@@ -104,7 +104,7 @@ func (self *Segment) ReadChunk(length int64, start int64) ([]byte, error) {
 
 	defer C.free(buffer)
 
-	if _, err := C.sysv_shm_read(C.int(self.Id), buffer, C.int(length), C.int(start)); err != nil {
+	if _, err := C.sysv_shm_read(C.int(self.Id), buffer, C.size_t(length), C.size_t(start)); err != nil {
 		return nil, err
 	}
 
@@ -143,7 +143,7 @@ func (self *Segment) Read(p []byte) (n int, err error) {
 
 	defer C.free(buffer)
 
-	if _, err := C.sysv_shm_read(C.int(self.Id), buffer, C.int(length), C.int(self.offset)); err != nil {
+	if _, err := C.sysv_shm_read(C.int(self.Id), buffer, C.size_t(length), C.size_t(self.offset)); err != nil {
 		return 0, err
 	}
 
@@ -175,7 +175,7 @@ func (self *Segment) Write(p []byte) (n int, err error) {
 		length = self.Size - self.offset
 	}
 
-	if _, err := C.sysv_shm_write(C.int(self.Id), unsafe.Pointer(&p[0]), C.int(length), C.int(self.offset)); err != nil {
+	if _, err := C.sysv_shm_write(C.int(self.Id), unsafe.Pointer(&p[0]), C.size_t(length), C.size_t(self.offset)); err != nil {
 		return 0, err
 	} else {
 		self.offset += length

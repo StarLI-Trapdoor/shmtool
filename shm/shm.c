@@ -15,7 +15,7 @@ int sysv_shm_open(size_t size, int flags, int perm) {
     }
 }
 
-int sysv_shm_write(int shm_id, void* input, int len, int offset) {
+int sysv_shm_write(int shm_id, void* input, size_t len, size_t offset) {
     // attach to the given segment to get its memory address
     char* addr = sysv_shm_attach(shm_id);
 
@@ -40,7 +40,7 @@ int sysv_shm_detach(void *addr) {
     return shmdt(addr);
 }
 
-int sysv_shm_read(int shm_id, void* output, int len, int offset) {
+int sysv_shm_read(int shm_id, void* output, size_t len, size_t offset) {
     // attach to the given segment to get its memory address
     char* addr = sysv_shm_attach(shm_id);
 
